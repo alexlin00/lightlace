@@ -87,12 +87,12 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             // (x,y,z) are positions of each joint relative to the hip(root)
             
-            let rightHand = SIMD3.init(jointTransforms[0][3,0], jointTransforms[0][3,1], jointTransforms[0][3,2])
-            let rightForearm = SIMD3.init(jointTransforms[1][3,0], jointTransforms[1][3,1], jointTransforms[1][3,2])
-            let rightArm = SIMD3.init(jointTransforms[2][3,0], jointTransforms[2][3,1], jointTransforms[2][3,2])
-            let leftHand = SIMD3.init(jointTransforms[3][3,0], jointTransforms[3][3,1], jointTransforms[3][3,2])
-            let leftForearm = SIMD3.init(jointTransforms[4][3,0], jointTransforms[4][3,1], jointTransforms[4][3,2])
-            let leftArm = SIMD3.init(jointTransforms[5][3,0], jointTransforms[5][3,1], jointTransforms[5][3,2])
+            let rightHand : SIMD3<Float> = [jointTransforms[0][3,0], jointTransforms[0][3,1], jointTransforms[0][3,2]]
+            let rightForearm : SIMD3<Float> = [jointTransforms[1][3,0], jointTransforms[1][3,1], jointTransforms[1][3,2]]
+            let rightArm : SIMD3<Float> = [jointTransforms[2][3,0], jointTransforms[2][3,1], jointTransforms[2][3,2]]
+            let leftHand : SIMD3<Float> = [jointTransforms[3][3,0], jointTransforms[3][3,1], jointTransforms[3][3,2]]
+            let leftForearm : SIMD3<Float> = [jointTransforms[4][3,0], jointTransforms[4][3,1], jointTransforms[4][3,2]]
+            let leftArm : SIMD3<Float> = [jointTransforms[5][3,0], jointTransforms[5][3,1], jointTransforms[5][3,2]]
             
             let r1 = distance(rightHand, rightForearm)
             let r2 = distance(rightArm, rightForearm)
@@ -102,13 +102,19 @@ class ViewController: UIViewController, ARSessionDelegate {
             let l3 = distance_squared(leftHand, leftArm)
             
             //acos gives radians
-            let rElbowAngle = acos((powf(r1,2) + powf(r2,2) + r3) / (2*r1*r2)) * 180 / Float.pi
-            let lElbowAngle = acos((powf(l1,2) + powf(l2,2) + l3) / (2*l1*l2)) * 180 / Float.pi
+            let rightElbowAngle = acos((powf(r1,2) + powf(r2,2) + r3) / (2*r1*r2)) * 180 / Float.pi
+            let leftElbowAngle = acos((powf(l1,2) + powf(l2,2) + l3) / (2*l1*l2)) * 180 / Float.pi
             
-            print("Right elbow angle is \(rElbowAngle)")
-            print("Left elbow angle is \(lElbowAngle)")
+            let rightElbowText = MeshResource.generateText(rightElbowAngle.description) // Generate mesh
+            let rightElbowEntity = ModelEntity(mesh: rightElbowText) // Create an entity from mesh
+            let leftElbowText = MeshResource.generateText(leftElbowAngle.description)
+            let leftElbowEntity = ModelEntity(mesh: leftElbowText)
             
+            characterAnchor.addChild(rightElbowEntity) // Need to create new ArchorEntity at elbow to attach text?
+            characterAnchor.addChild(leftElbowEntity)
             
+            //print("Right elbow angle is \(rElbowAngle)")
+            //print("Left elbow angle is \(lElbowAngle)")
             
         }
     }
