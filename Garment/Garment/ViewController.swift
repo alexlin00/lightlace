@@ -19,8 +19,11 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     // The 3D character to display.
     var character: BodyTrackedEntity?
-    let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
+    let characterOffset: SIMD3<Float> = [0.0, 0, 0] // Offset the character by one meter to the left
     let characterAnchor = AnchorEntity()
+    
+    //var elbow: ModelEntity?
+    //let elbowAnchor =  AnchorEntity()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,7 +85,7 @@ class ViewController: UIViewController, ARSessionDelegate {
             //var rightHand, rightForearm, rightArm, leftHand, leftForearm, leftArm : simd_float4x4
             var jointTransforms : [simd_float4x4] = []
             for i in 0..<jointNames.count{
-                jointTransforms.append(skeleton.modelTransform(for: ARSkeleton.JointName(rawValue: jointNames[i]))!)
+                jointTransforms.append(skeleton.modelTransform(for: ARSkeleton.JointName(rawValue: jointNames[i]))!) //else { continue }
             }
             
             // (x,y,z) are positions of each joint relative to the hip(root)
