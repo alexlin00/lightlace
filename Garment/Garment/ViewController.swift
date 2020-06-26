@@ -113,11 +113,11 @@ class ViewController: UIViewController, ARSessionDelegate {
             let leftElbowText = MeshResource.generateText(leftElbowAngle.description)
             let leftElbowEntity = ModelEntity(mesh: leftElbowText)
             
-            characterAnchor.addChild(rightElbowEntity) // Need to create new ArchorEntity at elbow to attach text?
-            characterAnchor.addChild(leftElbowEntity)
+            //characterAnchor.addChild(rightElbowEntity) // Need to create new ArchorEntity at elbow to attach text?
+            //characterAnchor.addChild(leftElbowEntity)
             
-            //print("Right elbow angle is \(rElbowAngle)")
-            //print("Left elbow angle is \(lElbowAngle)")
+            print("Right elbow angle is \(rightElbowAngle)")
+            print("Left elbow angle is \(leftElbowAngle)")
                 
             }
             
