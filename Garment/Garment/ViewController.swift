@@ -63,7 +63,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
-            guard let bodyAnchor = anchor as? ARBodyAnchor else { continue }
+            guard let bodyAnchor = anchor as? ARBodyAnchor else { return }
             
             // Update the position of the character anchor's position.
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
@@ -77,7 +77,7 @@ class ViewController: UIViewController, ARSessionDelegate {
                 // 1. the body anchor was detected and
                 // 2. the character was loaded.
                 characterAnchor.addChild(character)
-            }
+            
             
             //******* NEED TO GUARD AGAINST IF ANY NODES BELOW ARE NOT DETECTED
             let skeleton = bodyAnchor.skeleton
@@ -118,6 +118,8 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             //print("Right elbow angle is \(rElbowAngle)")
             //print("Left elbow angle is \(lElbowAngle)")
+                
+            }
             
         }
     }
